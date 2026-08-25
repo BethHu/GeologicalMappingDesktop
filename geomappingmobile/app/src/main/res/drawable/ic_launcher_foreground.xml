@@ -1,0 +1,306 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- ========================= -->
+    <!-- 外层柔光模拟 -->
+    <!-- ========================= -->
+
+    <path
+        android:strokeColor="#3300D4FF"
+        android:strokeWidth="12"
+        android:fillColor="#00000000"
+        android:pathData="
+        M54,18
+        A36,36 0 1,1 53.9,18"/>
+
+    <path
+        android:strokeColor="#6600D4FF"
+        android:strokeWidth="7"
+        android:fillColor="#00000000"
+        android:pathData="
+        M54,18
+        A36,36 0 1,1 53.9,18"/>
+
+
+    <!-- ========================= -->
+    <!-- 主罗盘外圈 -->
+    <!-- ========================= -->
+
+    <path
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="3"
+        android:fillColor="#001827"
+        android:pathData="
+        M54,18
+        A36,36 0 1,1 53.9,18"/>
+
+
+    <!-- ========================= -->
+    <!-- 内部刻度环 -->
+    <!-- ========================= -->
+
+    <path
+        android:strokeColor="#0088AA"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"
+        android:pathData="
+        M54,27
+        A27,27 0 1,1 53.9,27"/>
+
+
+    <!-- 四方向刻度 -->
+    <path
+        android:strokeColor="#00D4FF"
+        android:strokeWidth="2"
+        android:pathData="
+        M54,24 L54,30
+        M54,78 L54,84
+        M24,54 L30,54
+        M78,54 L84,54"/>
+
+
+    <!-- ========================= -->
+    <!-- 十字指针光晕 -->
+    <!-- ========================= -->
+
+    <path
+        android:fillColor="#2200D4FF"
+        android:pathData="
+        M54,10
+        L59,42
+        L54,48
+        L49,42 Z"/>
+
+    <path
+        android:fillColor="#2200D4FF"
+        android:pathData="
+        M54,98
+        L59,66
+        L54,60
+        L49,66 Z"/>
+
+
+    <!-- ========================= -->
+    <!-- 主指针 -->
+    <!-- ========================= -->
+
+    <!-- 上 -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="
+        M54,12
+        L58,42
+        L54,38
+        L50,42 Z"/>
+
+    <!-- 下 -->
+    <path
+        android:fillColor="#0099CC"
+        android:pathData="
+        M54,96
+        L58,66
+        L54,70
+        L50,66 Z"/>
+
+
+    <!-- 左 -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="
+        M12,54
+        L42,50
+        L38,54
+        L42,58 Z"/>
+
+
+    <!-- 右 -->
+    <path
+        android:fillColor="#0099CC"
+        android:pathData="
+        M96,54
+        L66,50
+        L70,54
+        L66,58 Z"/>
+
+
+    <!-- ========================= -->
+    <!-- 中心能量核心 -->
+    <!-- ========================= -->
+
+    <circle
+        android:fillColor="#2200D4FF"
+        android:centerX="54"
+        android:centerY="54"
+        android:radius="12dp"/>
+
+
+    <circle
+        android:fillColor="#00D4FF"
+        android:centerX="54"
+        android:centerY="54"
+        android:radius="7dp"/>
+
+
+    <circle
+        android:fillColor="#FFFFFF"
+        android:centerX="52"
+        android:centerY="52"
+        android:radius="2dp"/>
+
+
+    <!-- 中心外环 -->
+    <circle
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"
+        android:centerX="54"
+        android:centerY="54"
+        android:radius="14dp"/>
+    <!-- ========================= -->
+    <!-- 中心经纬地球核心 -->
+    <!-- ========================= -->
+
+
+    <!-- 地球外部柔光 -->
+
+    <circle
+        android:fillColor="#3300D4FF"
+        android:centerX="54"
+        android:centerY="54"
+        android:radius="15dp"/>
+
+
+
+    <!-- 地球主体 -->
+
+    <circle
+        android:fillColor="#00334A"
+        android:centerX="54"
+        android:centerY="54"
+        android:radius="10dp"/>
+
+
+
+    <!-- 地球边界 -->
+
+    <circle
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:centerX="54"
+        android:centerY="54"
+        android:radius="10dp"/>
+
+
+
+    <!-- ========================= -->
+    <!-- 经纬网 -->
+    <!-- ========================= -->
+
+
+    <!-- 横向赤道 -->
+
+    <path
+        android:strokeColor="#00D4FF"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"
+        android:pathData="
+        M44,54
+        Q54,50 64,54
+        Q54,58 44,54"/>
+
+
+
+    <!-- 上纬线 -->
+
+    <path
+        android:strokeColor="#0088AA"
+        android:strokeWidth="0.8"
+        android:fillColor="#00000000"
+        android:pathData="
+        M47,48
+        Q54,45 61,48"/>
+
+
+
+    <!-- 下纬线 -->
+
+    <path
+        android:strokeColor="#0088AA"
+        android:strokeWidth="0.8"
+        android:fillColor="#00000000"
+        android:pathData="
+        M47,60
+        Q54,63 61,60"/>
+
+
+
+    <!-- 中央经线 -->
+
+    <path
+        android:strokeColor="#00D4FF"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"
+        android:pathData="
+        M54,44
+        Q48,54 54,64
+        Q60,54 54,44"/>
+
+
+
+    <!-- 左右经线 -->
+
+    <path
+        android:strokeColor="#0088AA"
+        android:strokeWidth="0.8"
+        android:fillColor="#00000000"
+        android:pathData="
+        M50,45
+        Q46,54 50,63"/>
+
+
+    <path
+        android:strokeColor="#0088AA"
+        android:strokeWidth="0.8"
+        android:fillColor="#00000000"
+        android:pathData="
+        M58,45
+        Q62,54 58,63"/>
+
+
+
+
+    <!-- ========================= -->
+    <!-- 中心定位点 -->
+    <!-- ========================= -->
+
+
+    <circle
+        android:fillColor="#00E5FF"
+        android:centerX="54"
+        android:centerY="54"
+        android:radius="2.5dp"/>
+
+
+    <circle
+        android:fillColor="#FFFFFF"
+        android:centerX="53"
+        android:centerY="53"
+        android:radius="1dp"/>
+
+
+
+    <!-- 地球外围能量圈 -->
+
+    <circle
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"
+        android:centerX="54"
+        android:centerY="54"
+        android:radius="13dp"/>
+
+</vector>

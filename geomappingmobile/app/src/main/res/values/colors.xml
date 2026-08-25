@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- GitHub Dark Theme Colors -->
+    <color name="dark_bg">#FF0D1117</color>
+    <color name="dark_surface">#FF161B22</color>
+    <color name="dark_card">#FF21262D</color>
+    <color name="dark_border">#FF30363D</color>
+    <color name="dark_hover">#FF1C2128</color>
+    <color name="dark_active">#FF292E36</color>
+
+    <!-- Primary - Blue -->
+    <color name="primary">#FF58A6FF</color>
+    <color name="primary_container">#FF1F3A5F</color>
+    <color name="on_primary">#FF0D1117</color>
+
+    <!-- Secondary - Green -->
+    <color name="secondary">#FF3FB950</color>
+    <color name="secondary_container">#FF1A3A2A</color>
+    <color name="on_secondary">#FF0D1117</color>
+
+    <!-- Tertiary - Amber -->
+    <color name="tertiary">#FFD29922</color>
+    <color name="tertiary_container">#FF3A2E1A</color>
+
+    <!-- Error - Red -->
+    <color name="error">#FFF85149</color>
+    <color name="error_container">#FF3A1A1A</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FFC9D1D9</color>
+    <color name="text_secondary">#FF8B949E</color>
+    <color name="text_disabled">#FF6E7681</color>
+    <color name="text_link">#FF58A6FF</color>
+
+    <!-- Point Type Colors -->
+    <color name="point_geological">#FF58A6FF</color>
+    <color name="point_structural">#FFBC8CFF</color>
+    <color name="point_sample">#FF3FB950</color>
+    <color name="point_photo">#FFD29922</color>
+    <color name="point_landform">#FFF0883E</color>
+    <color name="point_hydrological">#FF79C0FF</color>
+    <color name="point_engineering">#FFE34D26</color>
+
+    <!-- Status Colors -->
+    <color name="status_recording">#FFF85149</color>
+    <color name="status_paused">#FFD29922</color>
+    <color name="status_idle">#FF3FB950</color>
+    <color name="status_synced">#FF3FB950</color>
+    <color name="status_pending">#FFD29922</color>
+
+    <!-- Surface -->
+    <color name="surface_card">#FF1A1A2E</color>
+</resources>

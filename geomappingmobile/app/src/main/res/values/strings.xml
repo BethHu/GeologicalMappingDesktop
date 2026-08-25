@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">地质填图助手</string>
+
+    <!-- Bottom Nav -->
+    <string name="nav_map">地图</string>
+    <string name="nav_route">路线</string>
+    <string name="nav_collect">采集</string>
+    <string name="nav_settings">更多</string>
+
+    <!-- Map -->
+    <string name="map_title">地图与定位</string>
+    <string name="map_switch_basemap">切换底图</string>
+    <string name="map_layers">图层</string>
+    <string name="map_locate">定位</string>
+    <string name="map_measure">量测</string>
+    <string name="map_navigate">导航</string>
+    <string name="map_download">离线地图</string>
+    <string name="map_track_record">轨迹记录</string>
+    <string name="map_current_location">当前位置</string>
+    <string name="map_zoom_to_location">定位至当前位置</string>
+    <string name="map_accuracy">定位精度</string>
+
+    <!-- Basemap Types -->
+    <string name="basemap_imagery">影像图</string>
+    <string name="basemap_terrain">地形图</string>
+    <string name="basemap_geological">地质底图</string>
+    <string name="basemap_dem">DEM</string>
+    <string name="basemap_vector">矢量底图</string>
+
+    <!-- Route -->
+    <string name="route_title">野外路线</string>
+    <string name="route_plan">路线规划</string>
+    <string name="route_record">开始记录</string>
+    <string name="route_stop">停止记录</string>
+    <string name="route_pause">暂停</string>
+    <string name="route_resume">继续</string>
+    <string name="route_edit">编辑路线</string>
+    <string name="route_delete_point">删除异常点</string>
+    <string name="route_journal">路线日志</string>
+    <string name="route_replay">路线回放</string>
+    <string name="route_no_routes">暂无路线记录</string>
+    <string name="route_length">路线长度</string>
+    <string name="route_duration">用时</string>
+    <string name="route_points">点数</string>
+    <string name="route_new_route">新建路线</string>
+    <string name="route_name_hint">路线名称</string>
+    <string name="route_description_hint">路线描述</string>
+
+    <!-- Collection -->
+    <string name="collection_title">地质点采集</string>
+    <string name="collection_new_point">新建地质点</string>
+    <string name="collection_no_points">暂无采集点</string>
+    <string name="collection_select_type">选择点类型</string>
+    <string name="collection_filter_all">全部</string>
+
+    <!-- Point Types -->
+    <string name="point_geological">地质观察点</string>
+    <string name="point_structural">构造测量点</string>
+    <string name="point_sample">样品点</string>
+    <string name="point_photo">照片点</string>
+    <string name="point_landform">地貌点</string>
+    <string name="point_hydrological">水文点</string>
+    <string name="point_engineering">工程地质点</string>
+
+    <!-- Point Detail -->
+    <string name="point_detail_title">点位详情</string>
+    <string name="point_id">点位编号</string>
+    <string name="point_coordinates">坐标</string>
+    <string name="point_elevation">高程</string>
+    <string name="point_time">采集时间</string>
+    <string name="point_description">地质描述</string>
+    <string name="point_photos">照片</string>
+    <string name="point_attachments">附件</string>
+    <string name="point_sketch">草图</string>
+    <string name="point_edit_location">修正位置</string>
+    <string name="point_save">保存</string>
+    <string name="point_cancel">取消</string>
+    <string name="point_delete">删除</string>
+    <string name="point_auto_id">自动编号</string>
+    <string name="point_manual_id">手动录入</string>
+    <string name="point_auto_locate">自动定位</string>
+    <string name="point_input_coords">输入坐标</string>
+    <string name="point_drag_to_move">拖动调整位置</string>
+    <string name="point_take_photo">拍照</string>
+    <string name="point_upload_sketch">上传草图</string>
+    <string name="point_longitude">经度</string>
+    <string name="point_latitude">纬度</string>
+
+    <!-- Settings -->
+    <string name="settings_title">设置</string>
+    <string name="settings_coordinate_system">坐标系统</string>
+    <string name="settings_cgcs2000">CGCS2000</string>
+    <string name="settings_wgs84">WGS84</string>
+    <string name="settings_local_coord">地方坐标</string>
+    <string name="settings_unit">单位设置</string>
+    <string name="settings_metric">公制</string>
+    <string name="settings_imperial">英制</string>
+    <string name="settings_gps">GPS设置</string>
+    <string name="settings_gps_update_interval">更新间隔</string>
+    <string name="settings_gps_min_distance">最小距离</string>
+    <string name="settings_cache">缓存管理</string>
+    <string name="settings_account">云端账号</string>
+    <string name="settings_export">数据导出</string>
+    <string name="settings_import">数据导入</string>
+    <string name="settings_cloud_sync">登录 / 注册</string>
+    <string name="settings_upload_cloud">上传到云端</string>
+    <string name="settings_download_cloud">从云端下载</string>
+    <string name="settings_clear_cache">清除缓存</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_version">版本</string>
+    <string name="settings_data_export">数据导出</string>
+    <string name="settings_data_import">导入 GeoJSON 数据</string>
+    <string name="settings_sync_online">线上同步</string>
+    <string name="settings_import_export">导入/导出</string>
+    <string name="settings_dark_mode">深色模式</string>
+    <string name="settings_follow_location">跟随位置</string>
+
+    <!-- Units -->
+    <string name="unit_meters">米</string>
+    <string name="unit_kilometers">公里</string>
+    <string name="unit_degrees">度</string>
+    <string name="unit_sqm">平方米</string>
+    <string name="unit_sqkm">平方公里</string>
+
+    <!-- GPS Status -->
+    <string name="gps_searching">正在搜索GPS…</string>
+    <string name="gps_fixed">GPS已定位</string>
+    <string name="gps_lost">GPS信号丢失</string>
+    <string name="gps_disabled">GPS未开启</string>
+
+    <!-- Common -->
+    <string name="action_ok">确定</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_save">保存</string>
+    <string name="action_delete">删除</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_share">分享</string>
+    <string name="action_confirm">确认</string>
+    <string name="loading">加载中…</string>
+    <string name="empty">暂无数据</string>
+    <string name="error_location">获取位置失败</string>
+    <string name="permission_location">需要位置权限</string>
+    <string name="permission_camera">需要相机权限</string>
+    <string name="permission_storage">需要存储权限</string>
+
+    <!-- Sync -->
+    <string name="sync_title">线上同步</string>
+    <string name="sync_server_url">服务器地址</string>
+    <string name="sync_server_hint">例如: http://192.168.1.100:5800</string>
+    <string name="sync_start">开始同步</string>
+    <string name="sync_in_progress">同步中…</string>
+    <string name="sync_success">同步成功</string>
+    <string name="sync_failed">同步失败</string>
+    <string name="sync_pulled">拉取了 %1$d 个地质点, %2$d 条路线</string>
+    <string name="sync_pushed">推送了 %1$d 个地质点, %2$d 条路线</string>
+    <string name="sync_result">推送: %1$d 点 %2$d 路线 | 拉取: %3$d 点 %4$d 路线</string>
+
+    <!-- Import -->
+    <string name="import_title">导入数据</string>
+    <string name="import_select_file">选择 GeoJSON 文件</string>
+    <string name="import_success">成功导入 %1$d 个地质点, %2$d 条路线</string>
+    <string name="import_failed">导入失败</string>
+    <string name="import_no_file">未选择文件</string>
+    <string name="import_overwrite">替换现有数据</string>
+    <string name="import_merge">合并到现有数据</string>
+</resources>

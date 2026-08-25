@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_bg">
+
+    <com.esri.arcgisruntime.mapping.view.MapView
+        android:id="@+id/mapView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.esri.arcgisruntime.mapping.view.SceneView
+        android:id="@+id/sceneView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/tapOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="@id/mapView"
+        app:layout_constraintBottom_toBottomOf="@id/mapView"
+        app:layout_constraintStart_toStartOf="@id/mapView"
+        app:layout_constraintEnd_toEndOf="@id/mapView" />
+
+    <!-- GPS Status Bar -->
+    <LinearLayout
+        android:id="@+id/gpsStatusBar"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:background="@color/dark_surface"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/gpsIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_gps_searching" />
+
+        <TextView
+            android:id="@+id/gpsStatusText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:text="@string/gps_searching" />
+
+        <TextView
+            android:id="@+id/gpsAccuracyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_disabled"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <!-- Top Toolbar -->
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@id/gpsStatusBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/map_title"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_toolbar_icon"
+            android:paddingHorizontal="4dp">
+
+            <ImageButton
+                android:id="@+id/btnBasemap"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_map"
+                android:contentDescription="@string/map_switch_basemap"
+                android:tint="@android:color/white"
+                android:padding="8dp" />
+
+            <ImageButton
+                android:id="@+id/btnLayers"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_layers"
+                android:contentDescription="@string/map_layers"
+                android:tint="@android:color/white"
+                android:padding="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Navigation Panel -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/navPanel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:backgroundTint="#EB161B22"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header with title and close -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="导航"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/navCloseBtn"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_add"
+                    android:tint="@color/text_secondary"
+                    android:padding="6dp"
+                    android:rotation="45"
+                    android:contentDescription="关闭导航" />
+            </LinearLayout>
+
+            <!-- Start & Destination Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="4dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/navStartLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="12dp"
+                        android:background="@drawable/bg_toolbar_icon"
+                        android:text="@string/map_current_location"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_gps_fixed"
+                        android:drawableTint="@color/secondary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <EditText
+                            android:id="@+id/navDestinationInput"
+                            android:layout_width="0dp"
+                            android:layout_height="44dp"
+                            android:layout_weight="1"
+                            android:hint="输入目的地"
+                            android:textColorHint="@color/text_disabled"
+                            android:textColor="@color/text_primary"
+                            android:background="@drawable/bg_toolbar_icon"
+                            android:paddingHorizontal="12dp"
+                            android:textSize="14sp"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text" />
+
+                        <ImageButton
+                            android:id="@+id/navSearchBtn"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="6dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_search"
+                            android:tint="@color/primary"
+                            android:padding="8dp"
+                            android:contentDescription="搜索" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/navSwapBtn"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_ruler"
+                    android:tint="@color/text_secondary"
+                    android:padding="8dp"
+                    android:rotation="90"
+                    android:contentDescription="交换起点终点" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/dark_border"
+                android:layout_marginVertical="8dp" />
+
+            <!-- Transport Mode & Actions Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/navModeDrive"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_toolbar_icon"
+                    android:src="@drawable/ic_drive"
+                    android:tint="@color/text_primary"
+                    android:padding="8dp"
+                    android:contentDescription="驾车" />
+
+                <ImageButton
+                    android:id="@+id/navModeWalk"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_toolbar_icon"
+                    android:src="@drawable/ic_walk"
+                    android:tint="@color/text_primary"
+                    android:padding="8dp"
+                    android:contentDescription="步行" />
+
+                <ImageButton
+                    android:id="@+id/navModeBike"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_toolbar_icon"
+                    android:src="@drawable/ic_bike"
+                    android:tint="@color/text_primary"
+                    android:padding="8dp"
+                    android:contentDescription="骑行" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/navGoBtn"
+                    style="@style/GeoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="导航"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    app:cornerRadius="6dp" />
+
+            </LinearLayout>
+
+            <!-- Route Info -->
+            <TextView
+                android:id="@+id/navRouteInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Right Side Action Buttons -->
+    <LinearLayout
+        android:id="@+id/actionButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnLocateCard"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            style="@style/GeoCard"
+            app:cardCornerRadius="8dp"
+            android:layout_marginBottom="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/btnLocate"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_gps_fixed"
+                    android:contentDescription="@string/map_locate"
+                    android:tint="@color/text_primary"
+                    android:padding="2dp" />
+                <TextView
+                    android:id="@+id/gpsAccuracyFloat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="8sp"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            style="@style/GeoCard"
+            app:cardCornerRadius="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageButton
+                android:id="@+id/btnMeasure"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_ruler"
+                android:contentDescription="@string/map_measure"
+                android:tint="@color/text_primary"
+                android:padding="10dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            style="@style/GeoCard"
+            app:cardCornerRadius="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageButton
+                android:id="@+id/btnDownload"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_download"
+                android:contentDescription="@string/map_download"
+                android:tint="@color/text_primary"
+                android:padding="10dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            style="@style/GeoCard"
+            app:cardCornerRadius="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageButton
+                android:id="@+id/btnAddPoint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_collect"
+                android:contentDescription="添加点"
+                android:tint="@color/text_primary"
+                android:padding="10dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            style="@style/GeoCard"
+            app:cardCornerRadius="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageButton
+                android:id="@+id/btnNavigate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_navigate"
+                android:contentDescription="@string/map_navigate"
+                android:tint="@color/text_primary"
+                android:padding="10dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btn3dCard"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            style="@style/GeoCard"
+            app:cardCornerRadius="8dp">
+            <ImageButton
+                android:id="@+id/btn3dToggle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_3d"
+                android:contentDescription="3D 显示"
+                android:tint="@color/text_primary"
+                android:padding="10dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <!-- Route Editing Toolbar -->
+    <LinearLayout
+        android:id="@+id/routeEditToolbar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/dark_surface"
+        android:paddingHorizontal="8dp"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@id/locationInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/routeEditInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:text="编辑路线: 点击点可移动，选中后点删除" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRouteEditDelete"
+            style="@style/GeoButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="删除"
+            android:textSize="13sp"
+            app:cornerRadius="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRouteEditCoord"
+            style="@style/GeoButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="坐标输入"
+            android:textSize="13sp"
+            android:layout_marginStart="8dp"
+            app:cornerRadius="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRouteEditSave"
+            style="@style/GeoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="完成编辑"
+            android:textSize="13sp"
+            android:layout_marginStart="8dp"
+            app:cornerRadius="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRouteEditCancel"
+            style="@style/GeoButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="取消"
+            android:textSize="13sp"
+            android:layout_marginStart="8dp"
+            app:cornerRadius="6dp" />
+    </LinearLayout>
+
+    <!-- Point Editing Toolbar -->
+    <LinearLayout
+        android:id="@+id/pointEditToolbar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/dark_surface"
+        android:paddingHorizontal="8dp"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@id/locationInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/pointEditInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:text="编辑地质点: 点击新位置移动点" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPointEditCoord"
+            style="@style/GeoButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="坐标输入"
+            android:textSize="13sp"
+            app:cornerRadius="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPointEditSave"
+            style="@style/GeoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="确定"
+            android:textSize="13sp"
+            android:layout_marginStart="8dp"
+            app:cornerRadius="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPointEditCancel"
+            style="@style/GeoButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="取消"
+            android:textSize="13sp"
+            android:layout_marginStart="8dp"
+            app:cornerRadius="6dp" />
+    </LinearLayout>
+
+    <!-- Planning Toolbar -->
+    <LinearLayout
+        android:id="@+id/planningToolbar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/dark_surface"
+        android:paddingHorizontal="8dp"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@id/locationInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/planningInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:text="规划模式: 点击地图添加点" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlanUndo"
+            style="@style/GeoButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="撤销"
+            android:textSize="13sp"
+            app:cornerRadius="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlanCoord"
+            style="@style/GeoButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="坐标输入"
+            android:textSize="13sp"
+            android:layout_marginStart="8dp"
+            app:cornerRadius="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlanSave"
+            style="@style/GeoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="保存"
+            android:textSize="13sp"
+            android:layout_marginStart="8dp"
+            app:cornerRadius="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlanCancel"
+            style="@style/GeoButtonOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="取消"
+            android:textSize="13sp"
+            android:layout_marginStart="8dp"
+            app:cornerRadius="6dp" />
+    </LinearLayout>
+
+    <!-- Bottom Sheet Indicator -->
+    <TextView
+        android:id="@+id/locationInfo"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:background="@color/dark_surface"
+        android:textColor="@color/text_secondary"
+        android:textSize="11sp"
+        android:paddingHorizontal="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
