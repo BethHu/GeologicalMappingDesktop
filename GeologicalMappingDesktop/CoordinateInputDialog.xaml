@@ -1,0 +1,189 @@
+<Window x:Class="GeologicalMappingDesktop.CoordinateInputDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="输入坐标" Height="400" Width="500"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <Style x:Key="DarkComboBoxItemStyle" TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="#E6EDF3"/>
+            <Setter Property="Background" Value="#21262D"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#30363D"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#1F6FEB"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Border Background="#0D1117" Padding="16">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- 格式切换 -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                <TextBlock Text="坐标格式:" FontSize="13" FontWeight="SemiBold" Foreground="#E6EDF3" Margin="0,0,12,0"/>
+                <RadioButton x:Name="RdoDecimal" Content="十进制" FontSize="12" Foreground="#E6EDF3" 
+                             IsChecked="True" GroupName="CoordFormat" Click="RdoDecimal_Click"/>
+                <RadioButton x:Name="RdoDMS" Content="度分秒" FontSize="12" Foreground="#E6EDF3" 
+                             GroupName="CoordFormat" Click="RdoDMS_Click" Margin="12,0,0,0"/>
+                <RadioButton x:Name="RdoProjected" Content="投影坐标" FontSize="12" Foreground="#E6EDF3" 
+                             GroupName="CoordFormat" Click="RdoProjected_Click" Margin="12,0,0,0"/>
+            </StackPanel>
+
+            <!-- 十进制 -->
+            <Grid x:Name="GridDecimal" Grid.Row="1" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="经度 / X:" FontSize="12" Foreground="#8B949E" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="TxtLonDecimal" Grid.Column="1" Height="28"
+                         VerticalContentAlignment="Center" Padding="4,0"
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12" Margin="0,0,16,0"/>
+                <TextBlock Grid.Column="2" Text="纬度 / Y:" FontSize="12" Foreground="#8B949E" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="TxtLatDecimal" Grid.Column="3" Height="28"
+                         VerticalContentAlignment="Center" Padding="4,0"
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12"/>
+            </Grid>
+
+            <!-- 度分秒 -->
+            <Grid x:Name="GridDMS" Grid.Row="1" Visibility="Collapsed" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="经度:" FontSize="12" Foreground="#8B949E" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="TxtLonDeg" Grid.Row="0" Grid.Column="1" Height="28" 
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="°" FontSize="12" Foreground="#8B949E" VerticalAlignment="Center" Margin="4,0"/>
+                <TextBox x:Name="TxtLonMin" Grid.Row="0" Grid.Column="3" Height="28" 
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12"/>
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="'" FontSize="12" Foreground="#8B949E" VerticalAlignment="Center" Margin="4,0"/>
+                <TextBox x:Name="TxtLonSec" Grid.Row="0" Grid.Column="5" Height="28" 
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12"/>
+                <TextBlock Grid.Row="0" Grid.Column="6" Text="''" FontSize="12" Foreground="#8B949E" VerticalAlignment="Center" Margin="4,0"/>
+                <ComboBox x:Name="CboLonHemisphere" Grid.Row="0" Grid.Column="7" Height="28" 
+                          ItemContainerStyle="{StaticResource DarkComboBoxItemStyle}"
+                          Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                          BorderThickness="1" FontSize="12">
+                    <ComboBoxItem Content="东(E)" Foreground="#E6EDF3" Background="#21262D"/>
+                    <ComboBoxItem Content="西(W)" Foreground="#E6EDF3" Background="#21262D"/>
+                </ComboBox>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="纬度:" FontSize="12" Foreground="#8B949E" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="TxtLatDeg" Grid.Row="1" Grid.Column="1" Height="28" 
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12" Margin="0,8,0,0"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="°" FontSize="12" Foreground="#8B949E" VerticalAlignment="Center" Margin="4,0"/>
+                <TextBox x:Name="TxtLatMin" Grid.Row="1" Grid.Column="3" Height="28" 
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12" Margin="0,8,0,0"/>
+                <TextBlock Grid.Row="1" Grid.Column="4" Text="'" FontSize="12" Foreground="#8B949E" VerticalAlignment="Center" Margin="4,0"/>
+                <TextBox x:Name="TxtLatSec" Grid.Row="1" Grid.Column="5" Height="28" 
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12" Margin="0,8,0,0"/>
+                <TextBlock Grid.Row="1" Grid.Column="6" Text="''" FontSize="12" Foreground="#8B949E" VerticalAlignment="Center" Margin="4,0"/>
+                <ComboBox x:Name="CboLatHemisphere" Grid.Row="1" Grid.Column="7" Height="28" 
+                          ItemContainerStyle="{StaticResource DarkComboBoxItemStyle}"
+                          Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                          BorderThickness="1" FontSize="12" Margin="0,8,0,0">
+                    <ComboBoxItem Content="北(N)" Foreground="#E6EDF3" Background="#21262D"/>
+                    <ComboBoxItem Content="南(S)" Foreground="#E6EDF3" Background="#21262D"/>
+                </ComboBox>
+            </Grid>
+
+            <!-- 投影坐标 -->
+            <Grid x:Name="GridProjected" Grid.Row="1" Visibility="Collapsed" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="X (东向):" FontSize="12" Foreground="#8B949E" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="TxtProjectedX" Grid.Column="1" Height="28" 
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12" Margin="0,0,16,0"/>
+                <TextBlock Grid.Column="2" Text="Y (北向):" FontSize="12" Foreground="#8B949E" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="TxtProjectedY" Grid.Column="3" Height="28" 
+                         Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                         BorderThickness="1" FontSize="12"/>
+            </Grid>
+
+            <!-- 分隔线 -->
+            <Border Grid.Row="2" BorderBrush="#30363D" BorderThickness="0,1,0,0" Margin="0,4,0,8"/>
+
+            <!-- 坐标系选择 -->
+            <Border Grid.Row="3" BorderBrush="#30363D" BorderThickness="1" CornerRadius="4" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="坐标参考系（CRS）" FontSize="12" FontWeight="SemiBold" Foreground="#E6EDF3" Margin="0,0,0,8"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="选择:" FontSize="12" Foreground="#8B949E" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <ComboBox x:Name="CboSpatialReference" Grid.Column="1" Height="28"
+                                  ItemContainerStyle="{StaticResource DarkComboBoxItemStyle}"
+                                  Background="#21262D" BorderBrush="#30363D" Foreground="#E6EDF3" 
+                                  BorderThickness="1" FontSize="12"/>
+                        <Button x:Name="BtnBrowseSr" Grid.Column="2" Content="浏览..." Width="70" Height="28"
+                                Background="#21262D" Foreground="#E6EDF3" BorderBrush="#30363D" BorderThickness="1"
+                                FontSize="12" Margin="8,0,0,0" Click="BtnBrowseSr_Click" Cursor="Hand"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- 按钮 -->
+            <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                <Button x:Name="BtnOK" Content="确定" Width="80" Height="32" 
+                        Background="#238636" Foreground="White" BorderThickness="0" 
+                        Click="BtnOK_Click" Margin="0,0,8,0" FontSize="13" Cursor="Hand"/>
+                <Button x:Name="BtnCancel" Content="取消" Width="80" Height="32" 
+                        Background="#21262D" Foreground="#E6EDF3" BorderBrush="#30363D" BorderThickness="1" 
+                        Click="BtnCancel_Click" FontSize="13" Cursor="Hand"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,139 @@
+<Window x:Class="GeologicalMappingDesktop.AttributeTableWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="属性表" Height="500" Width="900"
+        FontFamily="Microsoft YaHei"
+        Background="#1E1E1E"
+        WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        MinWidth="640" MinHeight="300">
+    <Window.Resources>
+        <Style x:Key="ToolBtn" TargetType="Button">
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="MinWidth" Value="64"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="Background" Value="#30363D"/>
+            <Setter Property="Foreground" Value="#E6EDF3"/>
+            <Setter Property="BorderBrush" Value="#484F58"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#388BFD33"/>
+                                <Setter TargetName="bd" Property="BorderBrush" Value="#58A6FF"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ToolBtnDanger" TargetType="Button" BasedOn="{StaticResource ToolBtn}">
+            <Setter Property="BorderBrush" Value="#F8514966"/>
+        </Style>
+        <Style x:Key="ToolBtnPrimary" TargetType="Button" BasedOn="{StaticResource ToolBtn}">
+            <Setter Property="Background" Value="#238636"/>
+            <Setter Property="BorderBrush" Value="#2EA043"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 工具栏：单层按钮，去掉多层 Popup -->
+        <Border Grid.Row="0" Background="#21262D" BorderBrush="#30363D" BorderThickness="0,0,0,1" Padding="8,6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="LayerNameText" Text="图层" Foreground="#8B949E"
+                               VerticalAlignment="Center" Margin="0,0,12,0" FontSize="13"/>
+
+                    <Button Style="{StaticResource ToolBtn}" Content="添加字段" Click="MenuItem_AddField" ToolTip="添加属性字段"/>
+                    <Button Style="{StaticResource ToolBtn}" Content="删除字段" Click="MenuItem_DeleteField" ToolTip="删除当前高亮列对应字段（先点击列标题）"/>
+                    <Button Style="{StaticResource ToolBtn}" Content="字段计算" Click="MenuItem_FieldCalculator" ToolTip="字段计算器"/>
+                    <Button Style="{StaticResource ToolBtn}" Content="批量赋值" Click="MenuItem_BatchUpdate" ToolTip="批量更改属性"/>
+
+                    <Border Width="1" Background="#30363D" Margin="4,4,10,4"/>
+
+                    <Button Style="{StaticResource ToolBtn}" Content="全选" Click="MenuItem_SelectAll"/>
+                    <Button Style="{StaticResource ToolBtn}" Content="清除选择" Click="MenuItem_ClearSelection"/>
+                    <Button Style="{StaticResource ToolBtnDanger}" Content="删除选中" Click="MenuItem_DeleteSelected" ToolTip="删除选中记录及对应要素"/>
+
+                    <Border Width="1" Background="#30363D" Margin="4,4,10,4"/>
+
+                    <Button Style="{StaticResource ToolBtn}" Content="导出" Click="BtnExport_Click"/>
+                    <Button Style="{StaticResource ToolBtnPrimary}" Content="保存" Click="BtnSave_Click" ToolTip="保存图层到 Shapefile"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" Content="✕" Width="32" Height="28"
+                        FontSize="14" Foreground="#8B949E" Background="Transparent" BorderThickness="0"
+                        Click="BtnClose_Click" VerticalAlignment="Center" ToolTip="关闭"/>
+            </Grid>
+        </Border>
+
+        <DataGrid x:Name="AttributeDataGrid" Grid.Row="1"
+                  AutoGenerateColumns="True"
+                  Background="#21262D"
+                  Foreground="#E6EDF3"
+                  BorderThickness="0"
+                  AlternatingRowBackground="#2D333B"
+                  RowBackground="#21262D"
+                  GridLinesVisibility="Horizontal"
+                  HorizontalGridLinesBrush="#30363D"
+                  VerticalGridLinesBrush="#30363D"
+                  HeadersVisibility="Column"
+                  SelectionMode="Extended"
+                  SelectionUnit="FullRow"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CellEditEnding="AttributeDataGrid_CellEditEnding"
+                  MouseDoubleClick="AttributeDataGrid_MouseDoubleClick">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#21262D"/>
+                    <Setter Property="Foreground" Value="#E6EDF3"/>
+                    <Setter Property="BorderBrush" Value="#30363D"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="Padding" Value="8,5"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#264F78"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+
+        <Border Grid.Row="2" Background="#161B22" Padding="10,5" BorderBrush="#30363D" BorderThickness="0,1,0,0">
+            <TextBlock x:Name="StatusText" Foreground="#8B949E" FontSize="12"
+                       Text="提示：双击行定位要素；点击列标题可选中字段；编辑后关闭窗口将询问是否保存。"/>
+        </Border>
+    </Grid>
+</Window>

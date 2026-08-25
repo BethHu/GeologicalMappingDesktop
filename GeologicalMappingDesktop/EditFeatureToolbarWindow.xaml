@@ -1,0 +1,134 @@
+<Window x:Class="GeologicalMappingDesktop.EditFeatureToolbarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="编辑工具栏" Height="Auto" Width="630.481"
+        FontFamily="Microsoft YaHei"
+        Background="#21262D"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Topmost="False"
+        SizeToContent="Height"
+        WindowStartupLocation="Manual">
+    <Border BorderBrush="#30363D" BorderThickness="1" Padding="6,4">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button x:Name="BtnDeletePoint" Width="75" Height="32" Margin="2"
+                        Background="#30363D" Foreground="#E6EDF3" BorderBrush="#484F58" BorderThickness="1"
+                        Cursor="Hand" Content="删除顶点" FontSize="11"
+                        ToolTip="删除选中的顶点"
+                        Click="BtnDeletePoint_Click"/>
+
+                <Button x:Name="BtnAddPoint" Width="75" Height="32" Margin="2"
+                        Background="#30363D" Foreground="#E6EDF3" BorderBrush="#484F58" BorderThickness="1"
+                        Cursor="Hand" Content="添加顶点" FontSize="11"
+                        ToolTip="点击后在地图上点选位置，自动插入到最近边段上"
+                        Click="BtnAddPoint_Click"/>
+
+                <ToggleButton x:Name="BtnModifyPoint" Width="85" Height="32" Margin="2"
+                              IsChecked="False"
+                              ToolTip="顶点修改：开启后点击拖拽顶点移动位置"
+                              Click="BtnModifyPoint_Click">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="Background" Value="#30363D"/>
+                            <Setter Property="BorderBrush" Value="#484F58"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Content" Value="修改顶点"/>
+                            <Setter Property="FontSize" Value="11"/>
+                            <Setter Property="Foreground" Value="#E6EDF3"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="1" CornerRadius="4"
+                                                Padding="8,4">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="bd" Property="BorderBrush" Value="#58A6FF"/>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="bd" Property="Background" Value="#1F6FEB"/>
+                                                <Setter TargetName="bd" Property="BorderBrush" Value="#58A6FF"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <ToggleButton x:Name="BtnTopologyLock" Width="85" Height="32" Margin="2"
+                              IsChecked="False"
+                              ToolTip="拓扑锁定：编辑时保持共享边/点同步"
+                              Click="BtnTopologyLock_Click">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="Background" Value="#30363D"/>
+                            <Setter Property="BorderBrush" Value="#484F58"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Content" Value="拓扑锁定"/>
+                            <Setter Property="FontSize" Value="11"/>
+                            <Setter Property="Foreground" Value="#E6EDF3"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="1" CornerRadius="4"
+                                                Padding="8,4">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="bd" Property="BorderBrush" Value="#58A6FF"/>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="bd" Property="Background" Value="#DA3633"/>
+                                                <Setter TargetName="bd" Property="BorderBrush" Value="#F85149"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <Separator Width="1" Background="#30363D" Margin="6,4"/>
+
+                <TextBlock Text="平滑" Foreground="#8B949E" FontSize="11"
+                           VerticalAlignment="Center" Margin="2,0,4,0"/>
+                <Slider x:Name="SmoothSlider" Width="120" Height="24"
+                        Minimum="0" Maximum="100" TickFrequency="10" IsSnapToTickEnabled="True"
+                        ToolTip="平滑强度（0=无，100=最大）">
+                    <Slider.Style>
+                        <Style TargetType="Slider">
+                            <Setter Property="Foreground" Value="#58A6FF"/>
+                            <Setter Property="BorderBrush" Value="#30363D"/>
+                        </Style>
+                    </Slider.Style>
+                </Slider>
+                <TextBlock x:Name="TxtSmoothValue" Text="0" Foreground="#E6EDF3" FontSize="11"
+                           VerticalAlignment="Center" Margin="4,0,0,0" Width="28"/>
+
+                <Button x:Name="BtnApplySmooth" Width="73" Height="32" Margin="4,2,2,2"
+                        Background="#238636" Foreground="White" BorderBrush="#2EA043" BorderThickness="1"
+                        Cursor="Hand" Content="应用" FontSize="11"
+                        ToolTip="应用平滑到当前要素"
+                        Click="BtnApplySmooth_Click"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="4,2,4,2">
+                <TextBlock x:Name="TxtEditHint" Foreground="#8B949E" FontSize="11"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

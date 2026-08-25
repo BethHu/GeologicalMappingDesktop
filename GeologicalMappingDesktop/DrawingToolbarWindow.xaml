@@ -1,0 +1,139 @@
+<Window x:Class="GeologicalMappingDesktop.DrawingToolbarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="绘制工具栏" Height="Auto" Width="540"
+        FontFamily="Microsoft YaHei"
+        Background="#21262D"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Topmost="False"
+        SizeToContent="Height"
+        WindowStartupLocation="Manual">
+    <Border BorderBrush="#30363D" BorderThickness="1" Padding="6,4">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <ToggleButton x:Name="BtnSnapToggle" Width="44" Height="32" Margin="2"
+                              IsChecked="True" Click="BtnSnapToggle_Click"
+                              ToolTip="捕捉：自动吸附要素顶点/边（绿色=开启，灰色=关闭）">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="Background" Value="#30363D"/>
+                            <Setter Property="BorderBrush" Value="#484F58"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="1" CornerRadius="4"
+                                                Padding="4,2">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="bd" Property="BorderBrush" Value="#58A6FF"/>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="bd" Property="Background" Value="#238636"/>
+                                                <Setter TargetName="bd" Property="BorderBrush" Value="#2EA043"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="#58A6FF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                    <TextBlock x:Name="SnapIcon" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">⏺</TextBlock>
+                </ToggleButton>
+
+                <Button x:Name="BtnNextPoint" Width="75" Height="32" Margin="2"
+                        Background="#30363D" Foreground="#E6EDF3" BorderBrush="#484F58" BorderThickness="1"
+                        Cursor="Hand" Content="精确坐标" FontSize="11"
+                        ToolTip="打开坐标输入对话框，输入精确坐标作为下一个点"
+                        Click="BtnNextPoint_Click"/>
+
+                <Button x:Name="BtnComplete" Width="70" Height="32" Margin="2"
+                        Background="#238636" Foreground="White" BorderBrush="#2EA043" BorderThickness="1"
+                        Cursor="Hand" Content="完成" FontSize="12"
+                        ToolTip="完成当前要素绘制"
+                        Click="BtnComplete_Click"/>
+
+                <Button x:Name="BtnCancel" Width="70" Height="32" Margin="2"
+                        Background="#30363D" Foreground="#E6EDF3" BorderBrush="#484F58" BorderThickness="1"
+                        Cursor="Hand" Content="取消" FontSize="12"
+                        ToolTip="取消当前要素绘制"
+                        Click="BtnCancel_Click"/>
+
+                <Button x:Name="BtnUndo" Width="70" Height="32" Margin="2"
+                        Background="#30363D" Foreground="#E6EDF3" BorderBrush="#484F58" BorderThickness="1"
+                        Cursor="Hand" Content="撤销" FontSize="12"
+                        ToolTip="撤回到上一个顶点"
+                        Click="BtnUndo_Click"/>
+
+                <Separator Width="1" Background="#30363D" Margin="6,4"/>
+
+                <ToggleButton x:Name="BtnFreehand" Width="60" Height="32" Margin="2"
+                              IsChecked="False"
+                              ToolTip="手绘模式：按住鼠标拖拽自由绘制，自动生成折点（空格切换吸附）"
+                              Click="BtnFreehand_Click">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="Background" Value="#30363D"/>
+                            <Setter Property="BorderBrush" Value="#484F58"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Content" Value="手绘"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="Foreground" Value="#E6EDF3"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="1" CornerRadius="4"
+                                                Padding="8,4">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="bd" Property="BorderBrush" Value="#58A6FF"/>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="bd" Property="Background" Value="#1F6FEB"/>
+                                                <Setter TargetName="bd" Property="BorderBrush" Value="#58A6FF"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <Separator Width="1" Background="#30363D" Margin="6,4"/>
+
+                <Button x:Name="BtnAzimuthDistance" Width="70" Height="32" Margin="2"
+                        Background="#30363D" Foreground="#E6EDF3" BorderBrush="#484F58" BorderThickness="1"
+                        Cursor="Hand" Content="方位/距离" FontSize="11"
+                        ToolTip="通过方位角和距离添加下一个点"
+                        Click="BtnAzimuthDistance_Click"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="4,2,4,2">
+                <TextBlock x:Name="TxtGeometryType" Foreground="#8B949E" FontSize="11"
+                           VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <TextBlock x:Name="TxtVertexCount" Foreground="#8B949E" FontSize="11"
+                           VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <TextBlock x:Name="TxtCoordinate" Foreground="#8B949E" FontSize="11"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

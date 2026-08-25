@@ -1,0 +1,153 @@
+<UserControl x:Class="GeologicalMappingDesktop.FieldDataPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="360"
+             Background="#161B22">
+    <UserControl.Resources>
+        <Style x:Key="SectionBorder" TargetType="Border">
+            <Setter Property="Background" Value="#21262D"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="10,0,10,10"/>
+            <Setter Property="Padding" Value="12,10"/>
+        </Style>
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#8B949E"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#E6EDF3"/>
+            <Setter Property="Background" Value="#21262D"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="8,2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#30363D"/>
+                                <Setter Property="BorderBrush" Value="#58A6FF"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#6E7681"/>
+                                <Setter Property="Background" Value="#161B22"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource ActionButton}">
+            <Setter Property="Background" Value="#238636"/>
+            <Setter Property="BorderBrush" Value="#2EA043"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2EA043"/>
+                    <Setter Property="BorderBrush" Value="#3FB950"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="0,0,0,10">
+            <!-- ===== 数据导入 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="📥 数据导入" Style="{StaticResource SectionHeader}"/>
+                    <WrapPanel>
+                        <Button Content="导入 ZIP" Style="{StaticResource PrimaryButton}" Width="85" Click="BtnImportZip_Click"/>
+                        <Button Content="GeoJSON" Style="{StaticResource ActionButton}" Width="80" Click="BtnImportGeoJson_Click"/>
+                        <Button Content="照片" Style="{StaticResource ActionButton}" Width="65" Click="BtnImportPhotos_Click"/>
+                        <Button Content="轨迹" Style="{StaticResource ActionButton}" Width="65" Click="BtnImportTracks_Click"/>
+                    </WrapPanel>
+                    <TextBlock x:Name="TxtImportStatus" Foreground="#8B949E" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 云端同步 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="☁️ 云端同步" Style="{StaticResource SectionHeader}"/>
+                    <WrapPanel>
+                        <Button Content="从云端下载" Style="{StaticResource ActionButton}" Width="120" Click="BtnCloudPull_Click"/>
+                        <Button Content="上传到云端" Style="{StaticResource PrimaryButton}" Width="120" Click="BtnCloudPush_Click"/>
+                    </WrapPanel>
+                    <Border Background="#161B22" CornerRadius="4" Padding="6" Margin="0,6,0,0" MinHeight="20">
+                        <StackPanel>
+                            <ProgressBar x:Name="ProgressCloudSync" Height="4" Visibility="Collapsed" Foreground="#58A6FF" Background="#30363D"/>
+                            <TextBlock x:Name="TxtCloudSyncStatus" Text="就绪" Foreground="#8B949E" FontSize="11"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 数据质量检查 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="📊 数据质量检查" Style="{StaticResource SectionHeader}"/>
+                    <TextBlock Text="扫描所有图层，检查坐标完整性、必填字段、图片关联和路线覆盖情况" Foreground="#8B949E" FontSize="10.5" TextWrapping="Wrap" Margin="0,-4,0,6"/>
+                    <Button Content="执行全面检查" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Stretch" Click="BtnRunQualityCheck_Click"/>
+                    <Border x:Name="CheckResultBorder" Background="#161B22" CornerRadius="4" Padding="8" Margin="0,6,0,0" MinHeight="24" Visibility="Collapsed">
+                        <TextBlock x:Name="TxtCheckResult" Foreground="#E6EDF3" FontSize="11" TextWrapping="Wrap"/>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 图片管理器（照片 + 草图） ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="🖼️ 图片管理器" Style="{StaticResource SectionHeader}"/>
+                    <TextBlock Text="浏览、重命名、关联照片/草图到点位，自动整理文件名" Foreground="#8B949E" FontSize="10.5" TextWrapping="Wrap" Margin="0,-4,0,6"/>
+                    <Button Content="打开图片管理器" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Stretch" Click="BtnPhotoManager_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 样品清单 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="📋 样品清单" Style="{StaticResource SectionHeader}"/>
+                    <WrapPanel>
+                        <Button Content="生成预览" Style="{StaticResource ActionButton}" Width="95" Click="BtnGenerateList_Click"/>
+                        <Button Content="导出 CSV" Style="{StaticResource ActionButton}" Width="85" Click="BtnExportCsv_Click"/>
+                        <Button Content="导入实验数据" Style="{StaticResource ActionButton}" Width="100" Click="BtnImportLabData_Click"/>
+                    </WrapPanel>
+                    <Border Background="#161B22" CornerRadius="4" Padding="6" Margin="0,6,0,0" MaxHeight="120" Visibility="Collapsed" x:Name="SamplePreviewBorder">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <TextBlock x:Name="TxtSamplePreview" Foreground="#E6EDF3" FontSize="10" FontFamily="Consolas" TextWrapping="Wrap"/>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 数据纠错 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="🔧 数据纠错" Style="{StaticResource SectionHeader}"/>
+                    <WrapPanel>
+                        <Button Content="修改坐标" Style="{StaticResource ActionButton}" Width="90" Click="BtnModifyPoint_Click"/>
+                        <Button Content="属性及编号修改" Style="{StaticResource ActionButton}" Width="110" Click="BtnEditAttributes_Click"/>
+                        <Button Content="附件修改" Style="{StaticResource ActionButton}" Width="90" Click="BtnEditAttachment_Click"/>
+                    </WrapPanel>
+                    <TextBlock x:Name="TxtCorrectStatus" Foreground="#8B949E" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

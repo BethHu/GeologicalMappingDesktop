@@ -1,0 +1,140 @@
+<UserControl x:Class="GeologicalMappingDesktop.DataEditPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="360"
+             Background="#161B22">
+    <UserControl.Resources>
+        <Style x:Key="SectionBorder" TargetType="Border">
+            <Setter Property="Background" Value="#21262D"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="10,0,10,10"/>
+            <Setter Property="Padding" Value="12,10"/>
+        </Style>
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#8B949E"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#E6EDF3"/>
+            <Setter Property="Background" Value="#21262D"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="8,2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#30363D"/>
+                                <Setter Property="BorderBrush" Value="#3FB950"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#6E7681"/>
+                                <Setter Property="Background" Value="#161B22"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource ActionButton}">
+            <Setter Property="Background" Value="#238636"/>
+            <Setter Property="BorderBrush" Value="#2EA043"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2EA043"/>
+                    <Setter Property="BorderBrush" Value="#3FB950"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="0,0,0,10">
+            <TextBlock Text="请先在图层管理器中开启目标图层的编辑模式，再使用下列工具。属性字段请在属性表中编辑。"
+                       Foreground="#8B949E" FontSize="10.5" TextWrapping="Wrap" Margin="12,10,12,8"/>
+
+            <!-- ===== 绘制 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="✏️ 绘制" Style="{StaticResource SectionHeader}"/>
+                    <WrapPanel>
+                        <Button x:Name="BtnDrawPoint" Content="绘制点" Style="{StaticResource ActionButton}" Width="95" Click="BtnDrawPoint_Click" IsEnabled="False"/>
+                        <Button x:Name="BtnDrawLine" Content="绘制线" Style="{StaticResource ActionButton}" Width="95" Click="BtnDrawLine_Click" IsEnabled="False"/>
+                        <Button x:Name="BtnDrawPolygon" Content="绘制面" Style="{StaticResource ActionButton}" Width="95" Click="BtnDrawPolygon_Click" IsEnabled="False"/>
+                    </WrapPanel>
+                    <DockPanel Margin="0,8,0,0">
+                        <TextBlock Text="点类型:" Foreground="#8B949E" FontSize="11" VerticalAlignment="Center" Margin="2,0,6,0"/>
+                        <ComboBox x:Name="CmbPointType" Height="28" FontSize="12"
+                                  SelectionChanged="CmbPointType_SelectionChanged"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,6,0,0">
+                        <TextBlock Text="线类型:" Foreground="#8B949E" FontSize="11" VerticalAlignment="Center" Margin="2,0,6,0"/>
+                        <ComboBox x:Name="CmbLineType" Height="28" FontSize="12"
+                                  SelectionChanged="CmbLineType_SelectionChanged"/>
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 要素操作 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="🛠️ 要素操作" Style="{StaticResource SectionHeader}"/>
+                    <WrapPanel>
+                        <Button x:Name="BtnEditFeature" Content="编辑要素" Style="{StaticResource ActionButton}" Width="95" Click="BtnEditFeature_Click"/>
+                        <Button x:Name="BtnDeleteFeature" Content="删除要素" Style="{StaticResource ActionButton}" Width="95" Click="BtnDeleteFeature_Click"/>
+                        <Button x:Name="BtnMoveFeature" Content="移动要素" Style="{StaticResource ActionButton}" Width="95" Click="BtnMoveFeature_Click"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 属性 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="📋 属性" Style="{StaticResource SectionHeader}"/>
+                    <Button x:Name="BtnOpenAttributeTable" Content="打开属性表" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Stretch" Click="BtnOpenAttributeTable_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 拓扑检查 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="🔍 拓扑检查" Style="{StaticResource SectionHeader}"/>
+                    <Button x:Name="BtnTopologyCheck" Content="打开拓扑检查" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Stretch" Click="BtnTopologyCheck_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 坐标系转换 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="🔄 坐标系转换" Style="{StaticResource SectionHeader}"/>
+                    <Button x:Name="BtnCoordinateProjection" Content="坐标系投影转换" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Stretch" Click="BtnCoordinateProjection_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 空间校准 ===== -->
+            <Border Style="{StaticResource SectionBorder}">
+                <StackPanel>
+                    <TextBlock Text="📐 空间校准" Style="{StaticResource SectionHeader}"/>
+                    <Button x:Name="BtnGeoreference" Content="打开空间校准工具" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Stretch" Click="BtnGeoreference_Click"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

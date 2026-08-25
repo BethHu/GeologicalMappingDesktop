@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <Target Name="AGSRuntimeTFMCheck" BeforeTargets="ResolveAssemblyReferences;Build;Rebuild">
+        <Error
+            Text = "The 'Esri.ArcGISRuntime' nuget package cannot be used to target '$(TargetFramework)' for output type '$(OutputType)'. Only platform-agnostic class libraries or Windows, iOS and Android platforms are supported."
+            Condition="'$(OutputType)'!='Library' OR ('$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))'!='' AND '$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))'!='windows' AND '$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))'!='android' AND '$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))'!='ios')" />
+    </Target>
+
+</Project>
