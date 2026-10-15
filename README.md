@@ -1,4 +1,3 @@
-# 地质填图桌面系统（GeologicalMappingDesktop）
 
 一套面向数字地质填图的桌面端应用，覆盖 **外业数据采集 → 云端 / 局域网同步 → 内业数据编辑 → 图件编绘 → 成果输出** 的完整业务流程。桌面端基于 **C# / WPF / .NET Framework 4.7.2 + ArcGIS Runtime 100.15.3** 开发，配套 Android 野外采集端（Kotlin + ArcGIS Runtime）。
 
@@ -18,6 +17,8 @@
 - **同步**：支持局域网直连（桌面端内置 HTTP 服务）与云端同步（Node.js / Express 后端）两条链路
 
 ---
+<img width="1254" height="836" alt="image" src="https://github.com/user-attachments/assets/5ea387e8-b6a1-45e0-bdaf-1016d1c0fc02" />
+
 
 ## 二、四大功能模块
 
@@ -28,6 +29,8 @@
 - 图层树：显示 / 隐藏、顺序调整、透明度、图层属性设置
 - 无参考影像支持：无坐标的 JPG / PNG 以覆盖层方式叠加显示，供后续空间校准
 - 图层符号渲染与图例
+<img width="2520" height="1584" alt="image" src="https://github.com/user-attachments/assets/d4aad544-f58e-4277-a41b-174467b691f9" />
+
 
 ### 2. 数据编辑
 地质空间数据编辑模块，是系统的核心：
@@ -39,12 +42,15 @@
 - **空间校准（地理配准）**：控制点 + 仿射 / 相似变换，实时残差可视化，支持导出 GeoTIFF / World File
 - **坐标系投影转换**：基于 GeometryEngine.Project 的图层 / 文件坐标转换
 - **拓扑检查**：悬挂点、重叠、缝隙、自相交等拓扑错误检测与定位
+<img width="2520" height="1584" alt="image" src="https://github.com/user-attachments/assets/9522a2d4-8020-4e0f-9fbc-d8af80e37205" />
 
 ### 3. 图件编绘
 地质图编绘模块：
 - 版式视图与图幅整饰：图廓、坐标网格 / 经纬网、图例、比例尺、指北针
 - 图件要素拖拽布局与属性调整
 - 成图渲染与导出
+<img width="2520" height="1584" alt="image" src="https://github.com/user-attachments/assets/04149f45-18f6-4a52-a3ac-4625905573a3" />
+
 
 ### 4. 野外数据
 野外数据接收与整理模块：
@@ -53,9 +59,11 @@
 - 按点位 ID 自动匹配照片、素描、视频等附件并归档
 - 样点清单与属性查看
 - 导出 CSV / GeoJSON
+<img width="2520" height="1584" alt="image" src="https://github.com/user-attachments/assets/09d60ec0-36e1-49ff-adc9-eeadfdeac163" />
 
 ### 顶部工具栏
 项目新建 / 打开 / 保存、添加数据、地图缩放 / 全图、撤销 / 重做、版本管理、登录与云同步。
+<img width="1830" height="86" alt="image" src="https://github.com/user-attachments/assets/38ec685f-84f6-47cc-80ef-fef0f0cd7950" />
 
 ---
 
@@ -181,6 +189,20 @@ git clone https://github.com/BethHu/GeologicalMappingDesktop.git
 ## 十、配套移动端
 
 本仓库 `geomappingmobile/` 为 Android 野外采集端，功能包括：地图浏览、GPS 定位、地质点 / 路线采集、照片 / 素描 / 视频记录、离线瓦片、GeoJSON / GPX / ZIP 导出与云端同步。
+地图页：
+<img width="1200" height="2652" alt="21b584dbe6bab401339eb229b1a05d94" src="https://github.com/user-attachments/assets/eaf15e97-0e1f-46bc-b2c2-1edfa28a23cd" />
+路线页：
+<img width="1200" height="2652" alt="e70591c7c203f58c3424b35ec1da1294" src="https://github.com/user-attachments/assets/4b3a6fac-6986-42c6-b279-28ac9e178d3f" />
+地质点页：
+<img width="1200" height="2652" alt="d0c3196fae17b4646494d68da527145f" src="https://github.com/user-attachments/assets/cea99842-a302-4ff7-b636-e9cacde50459" />
+设置登录页：
+<img width="1200" height="2652" alt="f8f9e79727d8588b28e03d1140c3c558" src="https://github.com/user-attachments/assets/d22bdadd-1b4d-4c11-9a94-39defaf6f18f" />
+
+
+
+
+
+
 
 ---
 
